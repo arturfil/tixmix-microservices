@@ -6,7 +6,7 @@ import { currentUserRouter } from './routes/current_user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
+import { errorHandler } from './middlewares/errorHandler';
 
 app.use(express.json());
 
