@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
+import mongoose from 'mongoose';
 const app = express();
 
 // import of routes
@@ -9,6 +10,7 @@ import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
 import { errorHandler } from './middlewares/errorHandler';
 import { NotFoundError } from './errors/notFoundError';
+import { User, UserModel } from './models/User';
 
 // middlewares
 app.use(express.json());
@@ -28,5 +30,14 @@ app.all('*', async () => {
 
 app.use(errorHandler);
 
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth')
+        console.log("Connected to database");
+        app.listen(8000, () => console.log("Listening on 8000"))
+    } catch (error) {
+        console.log(error)        
+    }
+}
 
-app.listen(8000, () => console.log("Listening on 8000"))
+start();

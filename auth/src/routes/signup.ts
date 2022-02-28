@@ -1,7 +1,8 @@
 import express, { Request, Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
+import { BadRequestError } from '../errors/badRequestError';
 import { RequestValidationError } from '../errors/requestValidationError';
-import { DatabaseConnectionError } from '../errors/databaseConnectionError';
+import { UserModel } from '../models/User';
 
 const router:Router = express.Router();
 
@@ -9,19 +10,21 @@ router.post('/api/users/signup', [
     body('email').isEmail().withMessage('Email must be valid'),
     body('password').isLength({min: 4, max: 20}).withMessage("Min 4 chars, max 20 chars")
 ], 
-(req: Request, res: Response) => {
+async (req: Request, res: Response) => {
     const errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
         throw new RequestValidationError(errors.array());
     } 
 
-    const { email, password } = req.body;
-    
-    console.log("Creating a user...");
-    throw new DatabaseConnectionError();
-    
-    res.send({});
+    const { email, password } = req.body
+    const exisitingUser = await UserModel.findOne({email});
+    if (exisitingUser) {
+        throw new BadRequestError();   
+    }
+    const user = new UserModel(req.body);
+    await user.save();
+    return res.status(201).send(user);
 });
 
 export {router as signUpRouter};
