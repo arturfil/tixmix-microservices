@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
 const app = express();
 
 // import of routes
@@ -10,10 +11,16 @@ import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
 import { errorHandler } from './middlewares/errorHandler';
 import { NotFoundError } from './errors/notFoundError';
-import { User, UserModel } from './models/User';
 
 // middlewares
 app.use(express.json());
+app.set('trust proxy', true);
+app.use(
+    cookieSession({
+        signed: false,
+        secure: true
+    })
+);
 
 // routes
 // GET/api/users is in the ingress-srv.yaml file
