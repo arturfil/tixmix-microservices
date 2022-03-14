@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
+import router from 'next/router';
+import { useRequest } from "../../hooks/use_request";
 import ticket_logo from "../../images/ticket_logo.png";
 
 export default function signup() {
@@ -7,8 +8,13 @@ export default function signup() {
     name: '',
     email: '',
     password: ''
-
   })
+  const {doRequest, errors} = useRequest({
+    url: '/api/users/signup',
+    method: 'post',
+    body: {email: user.email,password: user.password},
+    onSuccess: () => router.push("/")
+  });
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setUser({
@@ -19,12 +25,11 @@ export default function signup() {
 
   async function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
-    const { email, password } = user;
-    const response = await axios.post('/api/users/signup', {
-      email, password
-    })
-    console.log(response.data);
-    
+    try {
+      await doRequest();
+    } catch (error) {
+      return error      
+    }
   }
 
   return (
@@ -60,6 +65,7 @@ export default function signup() {
             {" "}sign in
             </span> 
         </p>
+        {errors}
       </form>
     </div>
   );
