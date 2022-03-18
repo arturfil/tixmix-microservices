@@ -1,6 +1,13 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/styles.scss'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { AppProps } from "next/app";
+import Header from "../components/Header";
+import "../styles/styles.scss";
 
-export default ({Component, pageProps}) => {
-    return <Component {...pageProps} />
+export default ({ Component, pageProps }: AppProps) => {
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
+  );
 };

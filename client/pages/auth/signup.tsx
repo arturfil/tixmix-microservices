@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import router from 'next/router';
 import { useRequest } from "../../hooks/use_request";
 import ticket_logo from "../../images/ticket_logo.png";
+import Link from "next/link";
 
 export default function signup() {
   const [user, setUser] = useState({
@@ -60,9 +61,11 @@ export default function signup() {
         />
         <button className="btn btn-dark form-control">Sign Up</button>
         <p style={{ color: "lightgrey", marginTop: "20px" }}>
-          Already have an account? Go ahead and 
+          Already have an account? Go ahead and { " "}
             <span style={{color: 'grey'}}>
-            {" "}sign in
+            <Link href="/auth/signin"> 
+              Sign In
+            </Link>
             </span> 
         </p>
         {errors}
