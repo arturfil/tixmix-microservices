@@ -23,6 +23,8 @@ export default function HomePage({currentUser}: Props) {
 }
 
 HomePage.getInitialProps = async (context: Object) => {
+  console.log('HOME PAGE');
+  
   const client = buildClient(context);
   const { data } = await client.get('/api/users/currentuser')
   return data;
