@@ -1,15 +1,12 @@
-import React from 'react'
-import buildClient from '../api/buildClient';
-import { User } from '../interfaces/User';
+import React from "react";
+import buildClient from "../api/buildClient";
+import { User } from "../interfaces/User";
 
 interface Props {
   currentUser: User | null;
 }
 
-export default function HomePage({currentUser}: Props) {
-
-
-  console.log(currentUser);
+export default function HomePage({ currentUser }: Props) {
   return (
     <div className="container mt-5">
       <h2>Home Page</h2>
@@ -19,13 +16,12 @@ export default function HomePage({currentUser}: Props) {
         <h4>You need to sign in!</h4>
       )}
     </div>
-  )
+  );
 }
 
 HomePage.getInitialProps = async (context: Object) => {
-  console.log('HOME PAGE');
-  
+  console.log("HOME PAGE");
   const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentuser')
+  const { data } = await client.get("/api/users/currentuser");
   return data;
-}
+};

@@ -1,9 +1,14 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import buildClient from "../api/buildClient";
+import { User } from "../interfaces/User";
+import NavLink from "./NavLink";
 
-const Header = () => {
-  
+interface Props {
+  currentUser?: User | null;
+}
+
+const Header = ({ currentUser }: Props) => {
   return (
     <Navbar className="header" collapseOnSelect expand="lg">
       <Container>
@@ -11,26 +16,21 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-            <Link href="/about">
-              <a>About</a>
-            </Link>
-            <Link href="/games">
-              <a>Games</a>
-            </Link>
-            <Link href="/fields">
-              <a>Fields</a>
-            </Link>
+            <NavLink path="/" title="Home" />
+            <NavLink path="/about" title="About" />
           </Nav>
           <Nav>
-            <Link href="/auth/signin">
-              <a>Sign In</a>
-            </Link>
-            <Link href="/auth/signup">
-              <a>Sign Up</a>
-            </Link>
+            {currentUser ? (
+              <>
+                <p>{currentUser?.email} </p>
+                <button className="btn btn-dark">Sign Out</button>
+              </>
+            ) : (
+              <>
+                <NavLink path="/auth/signin" title="Sign In" />
+                <NavLink path="/auth/signup" title="Sign Up" />
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,9 +1,15 @@
 import React from "react";
+import { User } from "../interfaces/User";
 
-export default function about() {
+interface Props {
+  currentUser: User
+}
+
+export default function about({currentUser}: Props) {
   return (
     <div className="container mt-5">
-      <h2>About Page Updated</h2>
+      <h2>About Page w/ user - {currentUser?.name}</h2>
     </div>
   );
 }
+

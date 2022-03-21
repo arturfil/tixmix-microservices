@@ -53,13 +53,12 @@ export default function signin() {
         />
         <button className="btn btn-dark form-control">Sign In</button>
         <p style={{ color: "lightgrey", marginTop: "20px" }}>
-          Don't have an account? Go ahead and {" "}
-            <span style={{color: 'grey'}}>
-            <Link href="/auth/signup">
-                Sign Up
-            </Link>
-            </span> 
+          Don't have an account? Go ahead and{" "}
+          <span style={{ color: "grey" }}>
+            <Link href="/auth/signup">Sign Up</Link>
+          </span>
         </p>
+        {errors}
       </form>
     </div>
   );
