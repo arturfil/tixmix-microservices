@@ -19,11 +19,17 @@ const Header = ({ currentUser }: Props) => {
             <NavLink path="/" title="Home" />
             <NavLink path="/about" title="About" />
           </Nav>
+          {currentUser && (
+            <Nav>
+              <h6 style={{marginRight: 5, marginTop: 5}}>Hi, {currentUser?.email}</h6>
+            </Nav>
+          )}
           <Nav>
             {currentUser ? (
               <>
-                <p>{currentUser?.email} </p>
-                <button className="btn btn-dark">Sign Out</button>
+                <button className="btn btn-outline-dark ">
+                  <NavLink path="/auth/signout" title="Sign out"/>
+                </button>
               </>
             ) : (
               <>

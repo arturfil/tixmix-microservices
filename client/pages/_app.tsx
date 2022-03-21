@@ -14,7 +14,6 @@ export default function AppComponent({ Component, pageProps, currentUser}: any) 
     <>
       <Header currentUser={currentUser}/>
       <Component {...pageProps} />
-      <h2>Test {currentUser?.email}</h2>
     </>
   );
 };
