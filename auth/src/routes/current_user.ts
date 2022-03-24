@@ -1,5 +1,5 @@
+import { currentUser } from '@tixmix/common';
 import express, { Request, Response, Router } from 'express';
-import { currentUser } from '../middlewares/currentUser';
 const router:Router = express.Router();
 
 router.get('/api/users/currentuser', currentUser, (req: Request, res: Response) => {

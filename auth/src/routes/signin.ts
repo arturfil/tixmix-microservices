@@ -1,10 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '../errors/badRequestError';
-import { validateRequest } from '../middlewares/validateRequest';
 import { UserModel } from '../models/User';
 import { Password } from '../services/Password';
 import jwt from 'jsonwebtoken';
+import { BadRequestError, validateRequest } from '@tixmix/common';
 const router:Router = express.Router();
 
 router.post('/api/users/signin', [

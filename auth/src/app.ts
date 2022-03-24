@@ -9,8 +9,7 @@ import { currentUserRouter } from './routes/current_user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
-import { errorHandler } from './middlewares/errorHandler';
-import { NotFoundError } from './errors/notFoundError';
+import { errorHandler, NotFoundError } from '@tixmix/common';
 
 // middlewares
 app.use(express.json());
